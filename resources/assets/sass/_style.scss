@@ -1,0 +1,13 @@
+// Custom Styles
+.post {
+    &__index {
+        &--img {
+            display: inline-block;
+            width: 50%;
+        }
+        &--link {
+            margin: 40px 20px;
+            float: right;
+        }
+    }
+}

@@ -1,0 +1,220 @@
+///.........Authintication......
+
+1- install login registration
+ - goto terminal
+   $php artisan make:auth
+
+2- create routing group
+  Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    
+      //adding you routes
+
+  });
+
+3- Add this condition in the HTML whenever you want to use Authentication
+    
+      @if(Auth::check())
+
+        //Code goes here
+
+      @endif
+
+4- To adding authentication to Controller
+
+      public function __construct()
+      {
+          $this->middleware('auth');
+      }
+
+///.......Blade Templets & Includes.......
+
+1- To include Blade templet (exmple: directory/filename.blade.php)
+
+    @extends(directory.filename)
+
+2- Adding lang to HTML
+    <html lang="{{ app()->getLocale() }}">
+
+3- CSRF Token
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+4- Title
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+5- Adding stylesheet
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+6- Extend contents
+    //In source blade
+    @yield('contents')
+
+    //In destination
+    @section('content')
+      //Code goes here
+    @endsection
+
+
+7- links
+    <a href="{{route('post.create')}}"></a>
+
+8- Check for errors
+    @if(count($errors) > 0)
+            <ul class="list-group">
+                @foreach($errors->all() as $error)
+                    <li class="list-group-item text-danger">
+                        {{$error}}
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+
+
+/////............ Controllers and Models
+
+1- creating new instane of databsae in controller 
+
+    a) add use App\Model in the controller
+    b) $instance  = new instane;
+
+    <?php
+
+////............Toastr Notification......
+
+1- Goto (github.com?CodeSeven/) ... download
+    toastr.min.css
+    toastr.min.js
+
+2- add the downloaded files to 
+    public/css
+    public/js
+
+3- goto layouts/app.blade.php and link your files
+    <!-- Styles -->
+        <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
+
+    <!-- Scripts -->
+        <script src="{{asset('js/toastr.min.js')}}"></script>
+
+        <script>
+            @if(Session::has('success'))
+                toastr.success("{{Session::get('success')}}")
+            @endif
+        </script>
+
+4- goto the controller and add
+    //at top
+    use Session;
+
+    //at the required function()
+    Session::flash('success', 'Post created succesfully');
+
+
+
+////.............slug..........
+
+1- add the following field to migration/table under title
+    $table->string('slug');
+
+2- added to model $fillable func()
+
+
+
+////.............Soft delete..........
+
+1- add the following field to migration/table before timestamp()
+    $table->softDeletes();
+
+2- goto post model and add
+    //at the top add
+    use Illuminate\Database\Eloquent\SoftDeletes;
+
+    //in the calss extend Model add
+    use SoftDeletes;
+
+    //after $fillable func()
+    protected $dates = ['deleted_at'];
+
+3- for softdelete use the normal deletel= method
+    $post->delete
+
+3- for viewing trashed posts
+    $post = Post::onlyTrashed()->get();
+
+5- For permenent delete
+    $post = Post::onlyTrashed()->where('id', $id)->first();
+    $post->forceDelete();
+
+
+///.......Seeds.............
+
+1- $ php artisan make:seeder UsersTableSeeder
+
+2- goto UsersTableSeeder and add 
+    public function run()
+    {
+        App\User::create([
+            'name' => 'mohamed moharram',
+            'email'=> 'admin@mail.com',
+            'password'=> bcrypt('password')
+        ]);
+    }
+
+3- goto DatabaseSeeder.php and add
+    public function run()
+    {
+        $this->call(UsersTableSeeder::class);
+    }
+
+4- goto terminal and run
+    $ php artisan db:seed
+
+
+///....Images........
+
+//controller
+1- 'featured' => 'required|image',
+
+2-  $featured = $request->featured;
+    $featured_new_name = time().$featured->getClientOriginalName();
+    $featured->move('uploads/posts', $featured_new_name);
+
+
+3-   'featured'     =>  'uploads/posts/'.$featured_new_name,
+
+//Model
+    public function getFeaturedAttribute($featured)
+        {
+            return asset($featured);
+    }
+
+//Views
+    <img src="{{$post->featured}}" alt="featured-image" class="img-fluid">
+
+
+////..... Many to Many relation
+
+// creating tags relation for posts
+
+1- $ php artisan make:model Tag-m
+
+2- at the migrated table add
+    $table->sting('tag');
+3- add the relation to Models
+    //at Post model
+
+    //at Tag model
+4- creat a migration table for the following relation
+    // tags, posts === tag, post === post-tag
+    $ php artisan make:migration create-post-tag-table
+
+5- goto the migrated table and add the following
+    //up
+    Schema::craete('post-tag', function(Blueprint $table){
+            $table->increments('id');
+            $table->integer('post_id');
+            $table->integer('tag_id');
+            $table->timestamps();
+        });
+
+    //down
+    Schema::drop('post_tag')

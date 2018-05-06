@@ -1,7 +1,7 @@
 <?php
 use App\Post;
 use App\Category;
-
+use App\Tag;
 // use Auth;
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,13 @@ use App\Category;
 
 ///.......Test Rout..........
 
-Route::get('/test', function() {
-    dd(App\Category::find(1)->posts());
-});
+// Route::get('/test', function() {
+//     $post = Post::find(1);
+//     // $tags = new Tag(['id' => '1']);
+//     // $post = new 
+//     // $post->tags()->save($tag);
+//     $post->Tags()->save(new Tag(['tag' => 'css']));
+// });
 
 
 Route::get('/', function () {

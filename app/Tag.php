@@ -11,7 +11,7 @@ class Tag extends Model
         'tag'
     ];
 
-    public function poats() {
+    public function posts() {
         return $this->belongsToMany('App\Post');
     } 
 }

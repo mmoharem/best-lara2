@@ -36,7 +36,23 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     
-    //....................Posts...
+    //.................Users...
+
+
+    //..User-index
+    Route::get('/users', 'UsersController@index')->name('users');
+    
+    
+    //..User-index
+    Route::get('/create/user', 'UsersController@create')->name('create.user');
+    
+    
+    //..User-index
+    Route::post('/store/user', 'UsersController@store')->name('store.user');
+
+
+
+    //....................Posts.................
 
     //..Post Index..
     Route::get('/posts', [
@@ -101,6 +117,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
         'uses'  => 'TagsController@index',
         'as'    => 'tags'
     ]);
+
+    //Tag Index 2.
+    // Route::get('/tags2', [
+    //     'uses'  => 'TagsController@index2',
+    //     'as'    => 'tags2'
+    // ]);
 
     //Tag Create
     Route::get('/tag/create', [

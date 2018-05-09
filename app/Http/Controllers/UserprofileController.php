@@ -3,17 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Tag;
-use App\Post;
-use Session;
+use App\User;
 
-class TagsController extends Controller
+class UserprofileController extends Controller
 {
-
-    // public function __construct() {
-    //     $this->middleware('auth');
-    // } //
-
     /**
      * Display a listing of the resource.
      *
@@ -21,15 +14,9 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return view('admin.tags.index')->with('tags', Tag::all());
+        $user = User::findOrFail(1)->profile;
+        dd($user->all());
     }
-
-    //Index2
-    // public function index2()
-    // {
-    //     $tags = Tag::all();
-    //     return view('admin.tags2.index2')->withTags($tags);
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +25,7 @@ class TagsController extends Controller
      */
     public function create()
     {
-        return view('admin.tags.create')->with('tags', Tag::all());
+        //
     }
 
     /**
@@ -49,17 +36,7 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'tag' => 'required|max:255'
-        ]);
-
-        Tag::create([
-            'tag' => $request->tag
-        ]);
-
-        Session::flash('success', 'Tag created succesfully');
-
-        return redirect()->back();
+        //
     }
 
     /**
@@ -81,8 +58,7 @@ class TagsController extends Controller
      */
     public function edit($id)
     {
-        $tag = Tag::findOrFail($id);
-        return view('admin.tags.edit')->with('tag', $tag);
+        //
     }
 
     /**
@@ -94,17 +70,7 @@ class TagsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'tag' => 'required|max:255'
-        ]);
-
-        $tag = Tag::findOrFail($id);
-        $tag->tag = $request->tag;
-        $tag->save();
-
-        Session::flash('success', 'Tag updated succesfully');
-
-        return redirect()->route('tags');
+        //
     }
 
     /**
@@ -115,10 +81,6 @@ class TagsController extends Controller
      */
     public function destroy($id)
     {
-        Tag::destroy($id);
-
-        Session::flash('success', 'Tag deleted succesfully');
-
-        return redirect()->back();
+        //
     }
 }

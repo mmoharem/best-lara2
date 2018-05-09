@@ -17,7 +17,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index')->with('posts', Post::all());
+        return view('admin.posts.index')->with('posts', Post::all())
+            ->withTags(Tag::all());
     }
 
     /**
@@ -77,7 +78,7 @@ class PostsController extends Controller
 
         Session::flash('success', 'Post created succesfully');
 
-        return redirect()->route('post');
+        return redirect()->route('posts');
     }
 
     /**
@@ -100,7 +101,10 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('admin.posts.edit')->with('post', $post)->with('categories', Category::all());
+        // $tags = $post->tags;
+        return view('admin.posts.edit')->with('post', $post)
+        ->with('categories', Category::all())
+        ->with('tags', Tag::all());
     }
 
     /**
@@ -117,8 +121,8 @@ class PostsController extends Controller
         $this->validate($request, [
             'title'    => 'required|max:255',
             'content'  => 'required',
-            'category_id' => 'required'
-            
+            'category_id' => 'required',
+            'tags'     =>  'required|max:255'
         ]);
         
         if($request->hasFile('featured'))
@@ -133,10 +137,12 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->category_id = $request->category_id;
         $post->save();
+        
+        $post->tags()->sync($request->tags);
 
         Session::flash('success', 'Post updated succesfully');
 
-        return redirect()->route('post');
+        return redirect()->route('posts');
     }
 
     /**

@@ -218,3 +218,7 @@
 
     //down
     Schema::drop('post_tag')
+
+///......Many To Many (post, tags).....
+
+1- App\Post::findOrFail(1)->tags;

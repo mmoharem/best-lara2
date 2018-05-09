@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Tag;
+use App\Post;
+use App\Category;
 
 class Post extends Model
 {
@@ -26,6 +28,6 @@ class Post extends Model
     }
 
     public function tags() {
-        return $this->BelongsToMany('App\Tag');
+        return $this->belongsToMany('App\Tag');
     }
 }

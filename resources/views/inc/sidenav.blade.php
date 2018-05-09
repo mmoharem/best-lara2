@@ -9,6 +9,9 @@
                             <a href="{{route('home')}}">Home</a>
                         </li>
                         <li class="list-group-item">
+                            <a href="{{route('users')}}">User</a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="{{route('posts')}}">Posts</a>
                         </li>
                         <li class="list-group-item">

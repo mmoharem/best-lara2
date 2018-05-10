@@ -1,0 +1,26 @@
+
+
+//...Middleware
+
+1-$ php artisan make:middleware Admin
+
+2- goto admin middleware and add
+    //At top
+    use Auth;
+
+    //under function handler
+    if(!Auth::user()->admin)
+        {
+            Session::flash('info', 'You have no permission to perfor this action');
+
+            return redirect()->back();
+        }
+        return $next($request);
+
+3- goto middleware kernal.php and add 
+    //under: These middleware may be assigned to groups or used individually.
+
+    'admin' => \App\Http\Middleware\Admin::class,
+
+4- goto route web.phph and add
+    Route::get('/user/admin/{id}', 'UsersController@admin')->name('user.admin')->middleware('admin');

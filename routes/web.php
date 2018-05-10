@@ -50,8 +50,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     //..User-Store
     Route::post('/store/user', 'UsersController@store')->name('store.user');
     
-    //..User-Store
-    Route::post('/user/admin', 'UsersController@admin')->name('user.admin');
+    //..User-Admin-Permission
+    Route::get('/user/admin/{id}', 'UsersController@admin')->name('user.admin');
+
+    Route::get('/user/not-admin/{id}', 'UsersController@not_admin')->name('user.not.admin');
 
 
 

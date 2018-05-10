@@ -105,7 +105,8 @@ class UsersController extends Controller
         //
     }
 
-    public function admin($id) {
+    public function admin($id) 
+    {
 
         $user = User::findOrFail($id);
 
@@ -113,6 +114,20 @@ class UsersController extends Controller
         $user->save();
 
         Session::flash('success', 'user permited succesfully');
+        return redirect()->back();
+
+    }
+
+
+    public function not_admin($id) 
+    {
+
+        $user = User::findOrFail($id);
+
+        $user->admin = 0;
+        $user->save();
+
+        Session::flash('success', 'user permission removed succesfully');
         return redirect()->back();
 
     }

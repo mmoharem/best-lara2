@@ -119,10 +119,10 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         $this->validate($request, [
-            'title'    => 'required|max:255',
-            'content'  => 'required',
-            'category_id' => 'required',
-            'tags'     =>  'required|max:255'
+            'title'         => 'required|max:255',
+            'content'       => 'required',
+            'category_id'   => 'required',
+            'tags'          =>  'required|max:255'
         ]);
         
         if($request->hasFile('featured'))

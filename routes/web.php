@@ -43,12 +43,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('/users', 'UsersController@index')->name('users');
     
     
-    //..User-index
+    //..User-Create
     Route::get('/create/user', 'UsersController@create')->name('create.user');
     
     
-    //..User-index
+    //..User-Store
     Route::post('/store/user', 'UsersController@store')->name('store.user');
+    
+    //..User-Store
+    Route::post('/user/admin', 'UsersController@admin')->name('user.admin');
 
 
 

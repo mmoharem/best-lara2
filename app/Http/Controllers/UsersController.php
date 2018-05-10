@@ -51,7 +51,8 @@ class UsersController extends Controller
         ]);
 
         $profile = Profile::create([
-            'user_id'   => $user->id
+            'user_id'   => $user->id,
+            'avatar'    => 'uploads/users/avatar5.png'
         ]);
 
         Session::flash('success', 'User Added succesfully');
@@ -102,5 +103,17 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function admin($id) {
+
+        $user = User::findOrFail($id);
+
+        $user->admin = 1;
+        $user->save();
+
+        Session::flash('success', 'user permited succesfully');
+        return redirect()->back();
+
     }
 }

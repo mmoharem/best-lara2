@@ -24,6 +24,9 @@
                             <a href="{{route('category.index')}}">Categories</a>
                         </li>
                         <li class="list-group-item">
+                            <a href="{{route('create.user')}}">Create new user</a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="{{route('category.create')}}">Create new category</a>
                         </li>
                         <li class="list-group-item">

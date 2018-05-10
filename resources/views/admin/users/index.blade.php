@@ -28,13 +28,17 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>
-                                        <img class="user-avatar" src="{{asset($user->profile->avatar)}}" alt="">
+                                        <img src="{{asset($user->profile->avatar)}}" class="user-avatar" alt="">
                                     </td>
                                     <td>
                                         {{$user->name}}
                                     </td>
                                     <td>
-                                        Permissions
+                                        @if($user->admin)
+                                            admin
+                                        @else
+                                            <a href="{{route('user.admin')}}" class="btn btn-xs btn-success">Permit admin</a>
+                                        @endif
                                     </td>
                                     <td>
                                         Delete

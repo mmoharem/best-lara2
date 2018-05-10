@@ -24,3 +24,20 @@
 
 4- goto route web.phph and add
     Route::get('/user/admin/{id}', 'UsersController@admin')->name('user.admin')->middleware('admin');
+
+5- adding the middleware to UsersController and remove from route
+    public function __construct()
+
+    {
+        $this->middleware('admin');
+    }
+
+6- add authorization to view.blade.php
+     @if(Auth::user()->admin)
+        <li class="list-group-item">
+            <a href="{{route('users')}}">User</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{{route('create.user')}}">Create new user</a>
+        </li>
+    @endif

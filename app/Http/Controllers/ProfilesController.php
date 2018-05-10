@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Profile;
-use Session;
 
-class UsersController extends Controller
+class ProfilesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        // $user = User::findOrFail(1)->profile;
-        // dd($user->all());
-        return view('admin.users.index')->with('users', User::all());
+        //
     }
 
     /**
@@ -28,7 +23,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        //
     }
 
     /**
@@ -39,25 +34,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name'  => 'required',
-            'email' => 'required|email'
-        ]);
-
-        $user = User::create([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => bcrypt('password')
-        ]);
-
-        $profile = Profile::create([
-            'user_id'   => $user->id,
-            'avatar'    => 'uploads/users/avatar5.png'
-        ]);
-
-        Session::flash('success', 'User Added succesfully');
-
-        return redirect()->route('users');
+        //
     }
 
     /**
@@ -103,38 +80,5 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function __construct()
-
-    {
-        $this->middleware('admin');
-    }
-
-    public function admin($id) 
-    {
-        // $this->middleware('admin');
-        $user = User::findOrFail($id);
-
-        $user->admin = 1;
-        $user->save();
-
-        Session::flash('success', 'user permited succesfully');
-        return redirect()->back();
-
-    }
-
-
-    public function not_admin($id) 
-    {
-
-        $user = User::findOrFail($id);
-
-        $user->admin = 0;
-        $user->save();
-
-        Session::flash('success', 'user permission removed succesfully');
-        return redirect()->back();
-
     }
 }

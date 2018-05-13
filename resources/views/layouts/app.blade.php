@@ -13,17 +13,20 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
+        @yield('style')
     </head>
 
     <body>
-        
-        @extends('inc.sidenav')
 
+            @extends('inc.sidenav')
         <div id="app">
             @extends('inc.topnav')
             
         </div>
+
         
+        
+            
             <!-- Scripts -->
             <script src="{{ asset('js/app.js') }}"></script>
             <script src="{{asset('js/toastr.min.js')}}"></script>
@@ -36,6 +39,9 @@
                 @if(Session::has('info'))
                     toastr.info("{{Session::get('info')}}")
                 @endif
+
             </script>
+            
+            @yield('script')
      </body>
 </html>

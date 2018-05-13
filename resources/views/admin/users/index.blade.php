@@ -29,6 +29,7 @@
                                 <tr>
                                     <td>
                                         <img src="{{asset($user->profile->avatar)}}" class="user-avatar" alt="">
+                                        {{-- <img src="{{asset($user->profile->avatar)}}" class="user-avatar" alt=""> --}}
                                     </td>
                                     <td>
                                         {{$user->name}}
@@ -42,7 +43,9 @@
                                         @endif
                                     </td>
                                     <td>
-                                        Delete
+                                        @if(Auth::id() !== $user->id)
+                                            <a href="{{route('delete.user', ['id' => $user->id])}}" class="btn btn-xs btn-success">Delete user</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

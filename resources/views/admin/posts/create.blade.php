@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('style')
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+@endsection
+
 @section('content')
 
     <div class="panel panel-default">
@@ -60,4 +64,13 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#content').summernote();
+        });
+    </script>
 @endsection

@@ -55,6 +55,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
     Route::get('/user/not-admin/{id}', 'UsersController@not_admin')->name('user.not.admin');
 
+    //User-Profile
+    Route::get('/user/profile', 'ProfilesController@index')->name('user.profile');
+
+    //User-Profile-update
+    Route::post('/profile/update', 'ProfilesController@update')->name('profile.update');
+
+    //Delete-User
+    Route::get('/delete/user{id}', 'UsersController@destroy')->name('delete.user');
 
 
     //....................Posts.................

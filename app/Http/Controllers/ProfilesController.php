@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Session;
+use App\User;
 
 class ProfilesController extends Controller
 {
@@ -13,7 +16,7 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.users.profile')->with('user', Auth::user());
     }
 
     /**
@@ -66,9 +69,46 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request, [
+            // 'name'  => '$request->name',
+            // 'email' => '$request->email',
+            'name'      => 'required',
+            'email'     => 'required|email',
+            'facebook'  => 'required|url',
+            'youtube'   => 'required|url'
+
+        ]);
+
+        $user = Auth::user();
+
+        if($request->hasFile('avatar'))
+
+        {
+            $avatar = $request->avatar;
+            $avatar_new_name = time().$avatar->getClientOriginalName();
+            $avatar->move('uploads/users', $avatar_new_name);
+            $user->profile->avatar = 'uloads/users'.$avatar_new_name;
+            $user->profile->save();
+        }
+
+        $user->name                 = $request->name;
+        $user->email                = $request->email;
+        $user->profile->facebook    = $request->facebook;
+        $user->profile->youtube     = $request->youtube;
+        $user->save();
+
+        $user->profile->save();
+
+        If($request->has('password'))
+        {
+            $user->password = bcrypt($request->password);
+        }
+
+        Session::flash('success', 'User Profile updated');
+
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +119,6 @@ class ProfilesController extends Controller
      */
     public function destroy($id)
     {
-        //
+       //
     }
 }

@@ -102,7 +102,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->profile->delete();
+        $user->delete();
+
+        Session::flash('success', 'User succesfully delete');
+
+        return redirect()->back();
     }
 
     public function __construct()

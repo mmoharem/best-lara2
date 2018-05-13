@@ -197,5 +197,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
         'uses' => 'CategoriesController@destroy',
         'as'   => 'category.delete'
     ]);
+
+    //..................Settings.............
+    Route::get('/settings', 'SettingsController@index')->name('settings');
+    
+    // Route::get('/settings', 'SettingsController@update')->name('settings.update');
 });
 

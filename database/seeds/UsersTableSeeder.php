@@ -16,7 +16,8 @@ class UsersTableSeeder extends Seeder
             'email'     => 'admin@mail.com',
             'password'  => bcrypt('momast5546'),
             'admin'     => 1
-        ]);App\Profile::create([
+        ]);
+        App\Profile::create([
             'user_id'   => $user->id,
             'avatar'    => 'link to image',
             'about'     => 'This text about user',

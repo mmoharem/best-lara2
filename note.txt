@@ -1,3 +1,22 @@
 
 
-continue category and tags deleting
+1- continue category and tags deleting
+
+2- to use middle ware
+          @if(Auth::user()->admin)
+                    <li class="list-group-item">
+                        <a href="{{route('settings')}}">Post Settings</a>
+                    </li>
+            @endif
+
+            //option 1
+            adding middleware to Route:
+            Route::get('/settings', 'SettingsController@index')->name('settings')->middleware('admin');
+            Route::get('/settings', 'SettingsController@update')->name('settings.update')->middleware('admin');
+
+            //option 2
+            adding middleware to the controller (SettingsController):
+            public function __construct() {
+                $this->middleware('admin');
+            }
+

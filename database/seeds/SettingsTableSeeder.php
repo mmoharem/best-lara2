@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SettingTableSeeder extends Seeder
+class SettingsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class SettingTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Setting::create([
+        App\Settings::create([
             'site_name'     => "Beat-Lara-app",
             'address'       => 'Egypt, Giza',
             'contact_number'=> '+20 2345 1322',

@@ -24,10 +24,12 @@ use App\Tag;
 //     $post->Tags()->save(new Tag(['tag' => 'css']));
 // });
 
+//..Front End Site
+Route::get('/', 'FrontEndController@index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/post/{slug}', 'FrontEndController@singlePost')->name('single.post');
+//.........
+
 
 Auth::routes();
 

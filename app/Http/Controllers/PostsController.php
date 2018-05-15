@@ -69,7 +69,7 @@ class PostsController extends Controller
             'featured'      =>  'uploads/posts/'.$featured_new_name,
             'category_id'   =>  $request->category_id,
             //Create new laravel 5.6 project ===> create-new-laravel-5-6-project
-            'slug' => str_slug($request->title),
+            'slug' => str_slug($request->title)
             // 'tag_id' => $request('tag_id')
         ]);
 
